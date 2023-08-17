@@ -1,18 +1,22 @@
 import React, { useState } from 'react'
+import { Toaster, toast } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom'
 
 const Header = () => {
     const [showProfileDropdown, setShowProfileDropdown] = useState(false);
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
       console.log("User Logout");
-      
+      toast.success('Successfully logout!', {
+        position: 'top-right',
+      });
       console.log("Token romoved");
       navigate('/admin/login');
     } catch (error) {
       console.log('Failed to log out:', error.message);
+      toast.error('Oops Something wrong!');
     }
   };
 
@@ -47,6 +51,7 @@ const Header = () => {
                 >
                   Log out
                 </button>
+               
               </div>
             </div>
           )}
