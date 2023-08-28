@@ -1,29 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import AdminLayout from '../Layout/AdminLayout';
 
 const ProjectAll = () => {
-  const projects = [
-    {
-      _id: 1,
-      title: 'Project 1',
-      description: 'Description for Project 1',
-      image: 'project1.jpg',
-      technologies: 'Tech 1, Tech 2',
-    },
-    {
-      _id: 2,
-      title: 'Project 2',
-      description: 'Description for Project 2',
-      image: 'project2.jpg',
-      technologies: 'Tech 3, Tech 4',
-    },
-    // Add more dummy project data as needed
-  ];
+ const [projects, setProjects] = useState([]);
 
   const handleDelete = (projectId) => {
     console.log(`Deleted Project with ID: ${projectId}`);
-    // Perform the actual delete operation using API calls or other logic
+    
   };
+  
+  useEffect(() => {
+    const apiEndpoint = 'http://localhost:5000/api/projects';
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(apiEndpoint);
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data);
+          setProjects(data);
+        } else {
+          console.log("Error Retrieving data");
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+      
+
+    }
+
+    fetchData();
+
+  }, []);
+
 
   return (
     <AdminLayout title="Admin-All Projects">
@@ -31,6 +40,7 @@ const ProjectAll = () => {
         <table className="table-auto">
           <thead>
             <tr>
+            <th className="px-4 py-2">SN</th>
               <th className="px-4 py-2">Title</th>
               <th className="px-4 py-2">Description</th>
               <th className="px-4 py-2">Image</th>
@@ -41,6 +51,7 @@ const ProjectAll = () => {
           <tbody>
             {projects.map((project) => (
               <tr key={project._id}>
+                <td className="border px-4 py-2">{project._id}</td>
                 <td className="border px-4 py-2">{project.title}</td>
                 <td className="border px-4 py-2">{project.description}</td>
                 <td className="border px-4 py-2">
@@ -55,7 +66,7 @@ const ProjectAll = () => {
                   <button
                     className="bg-blue-500 hover:bg-blue-700 mx-1 text-white font-bold py-2 px-4 rounded"
                     onClick={() => {
-                      // Navigate to edit page
+                     
                       window.location.href = `/admin/projects/edit/${project._id}`;
                     }}
                   >

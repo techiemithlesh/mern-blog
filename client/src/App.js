@@ -16,8 +16,10 @@ import AdminDashboard from './admin/Pages/AdminDashboard';
 import Login from './admin/Pages/Login';
 import ProjectAll from './admin/Pages/ProjectAll';
 import AddProject from './admin/Pages/AddProject';
+import EditProject from './admin/Pages/EditProject';
 
 function App() {
+  
   return (
   <>
   <Router>
@@ -33,6 +35,7 @@ function App() {
     <Route path='/admin/dashboard' element={<AdminDashboard/>}/>
     <Route path='/admin/projects' element={<ProjectAll/>}/>
     <Route path='/admin/project-add' element={<AddProject/>}/>
+    <Route path="/admin/projects/edit/:id" element={<EditProject />} />
   </Routes>
   <Toaster />
   </Router>

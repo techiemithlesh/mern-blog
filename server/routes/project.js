@@ -55,10 +55,10 @@ router.get('/:id', async (req, res) => {
 // CREATE a new project
 router.post('/', upload.single('image'), async (req, res) => {
   try {
-    const { title, shortDescription, description, keywords, projectCategory, metaDescription, liveLink, demoLink } = req.body;
+    const { title, shortDescription, description, keywords, projectCategory, metaDescription, liveLink, demoLink, status } = req.body;
     const image = '/uploads/projects/' + req.file.filename;
     const slug = slugify(title, { lower: true });
-    const project = new Project({ title, shortDescription, description, image, projectCategory, keywords, metaDescription, liveLink, demoLink });
+    const project = new Project({ title, shortDescription, description, image, projectCategory, keywords, metaDescription, liveLink, demoLink, status });
     const savedProject = await project.save();
     res.json(savedProject);
   } catch (err) {
@@ -69,7 +69,7 @@ router.post('/', upload.single('image'), async (req, res) => {
 // UPDATE a project by ID
 router.put('/:id', upload.single('image'), async (req, res) => {
   try {
-    const { title, shortDescription, description, keywords, projectCategory, metaDescription, liveLink, demoLink } = req.body;
+    const { title, shortDescription, description, keywords, projectCategory, metaDescription, liveLink, demoLink, status } = req.body;
     let image = req.body.image; 
     if (req.file) {
       // If a new image is uploaded, update the image URL
@@ -83,7 +83,7 @@ router.put('/:id', upload.single('image'), async (req, res) => {
     }
     const updatedProject = await Project.findByIdAndUpdate(
       req.params.id,
-      { title, shortDescription, description, image, projectCategory, keywords, metaDescription, demoLink, liveLink },
+      { title, shortDescription, description, image, projectCategory, keywords, metaDescription, demoLink, liveLink, status },
       { new: true }
     );
     res.json(updatedProject);

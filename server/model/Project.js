@@ -10,6 +10,12 @@ const projectSchema = new mongoose.Schema({
     metaDescription: { type: String },
     demoLink: { type: String, required: true },
     liveLink: { type: String, required: true },
+    status : {
+        type: String,
+        enum: ['draft', 'publish'],
+        default: 'draft',
+        required: true,
+    }
 
 })
 

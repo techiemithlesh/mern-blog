@@ -25,7 +25,7 @@ function AdminLayout({
         <Header />
         <div className="flex flex-row">
           <Sidebar />
-          <main className="flex-grow">{children}</main>
+          <main className="flex-grow mx-4 my-4">{children}</main>
         </div>
         <Footer />
       
